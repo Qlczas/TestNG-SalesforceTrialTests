@@ -36,6 +36,12 @@ public class PageUtils {
         logText("# Clicked Element with locator - "+elementLocator.toString());
     }
 
+    protected void clickElementByJS(By elementLocator) {
+        WebElement element = driver.findElement(elementLocator);
+        JavascriptExecutor executor = (JavascriptExecutor)driver;
+        executor.executeScript("arguments[0].click();", element);
+    }
+
     protected void scrollToElement(By elementLocator){
         WebElement element = driver.findElement(elementLocator);
         ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);", element);
@@ -86,7 +92,7 @@ public class PageUtils {
         logText("# Selected dropdown value: " + textToSelect);
     }
 
-     private void waitForPage(int timeInSeconds){
+    protected void waitForPage(int timeInSeconds){
         driver.manage().timeouts().implicitlyWait(timeInSeconds, TimeUnit.SECONDS);
     }
 }

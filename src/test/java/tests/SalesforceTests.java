@@ -3,6 +3,7 @@ package tests;
 import org.testng.annotations.Test;
 import pageobjects.salesforce.HomePage;
 import pageobjects.salesforce.maintabs.AccountsTab;
+import pageobjects.salesforce.maintabs.AccountModal;
 
 
 public class SalesforceTests extends BaseTests {
@@ -13,6 +14,15 @@ public class SalesforceTests extends BaseTests {
         homePage.openGivenHomepageTab("Accounts");
 
         AccountsTab accountsTab = new AccountsTab(driver.get());
-        accountsTab.createNewUser();
+        accountsTab.openCreateNewAccountModal();
+
+        AccountModal accountModal = new AccountModal(driver.get());
+        accountModal.fillAccountData();
+
+        accountsTab.verifyAccountCreated();
+        accountsTab.openEditAccountModal();
+
+        accountModal.editAccountData();
+        accountsTab.verifyAccountEdited();
     }
 }
